@@ -9,7 +9,7 @@ class GaussLegendre {
 
           double a_, b_, tol_, N_;
           
-          void GaussLegendr(double a, double b, double N, double tol) {
+          GaussLegendre(double a, double b, double N, double tol) {
                a_ = a;
                b_ = b;
                N_ = N;
@@ -144,9 +144,7 @@ int main() {
           << "FUNCAO : f(x) = (sen(2x) + 4x^2+ 3x)^2" << endl
           << endl;
 
-     GaussLegendre p;
-
-     p.GaussLegendr(0, 1, 1, pow(10, -6));
+     GaussLegendre p = GaussLegendre(0, 1, 1, pow(10, -6));
 
      cout << p.funcao(10);
 
