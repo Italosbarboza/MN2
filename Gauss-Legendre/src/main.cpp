@@ -29,7 +29,7 @@ class GaussLegendre {
                return (xi + xf) / 2 + ((xf - xi) / 2) * ak;
           }
 
-          double integralTolerancia(int pontosInterpolacao, double *w, double *a) {
+          double integralTolerancia(int pontosInterpolacao, double *w, double *s) {
     
                double Iv, In = 0,
                delta, sum,
@@ -49,7 +49,7 @@ class GaussLegendre {
                          sum = 0;
 
                          for (int k = 0; k < pontosInterpolacao; k++)
-                              sum += (w[k] * funcao(x(a[k], xi, xf)));
+                              sum += (w[k] * funcao(x(s[k], xi, xf)));
 
                          In += ((xf - xi) / 2) * sum;
                          count++;
@@ -99,20 +99,20 @@ class GaussLegendre {
           }
 
           double pontosInterpolacao3(int t) {
-               double a[3], w[3];
+               double s[3], w[3];
 
-               a[0] = -0.7745966692;
-               a[1] = 0;
-               a[2] = -a[0];
+               s[0] = -0.7745966692;
+               s[1] = 0;
+               s[2] = -s[0];
 
                w[0] = w[2] = 0.5555555555;
                w[1] = 0.8888888888;
 
                switch (t) {
                     case 1:
-                         return integralParticao(3, w, a);
+                         return integralParticao(3, w, s);
                     case 2:
-                         return integralTolerancia(3, w, a);
+                         return integralTolerancia(3, w, s);
                }
                return 0;
           }
@@ -144,9 +144,10 @@ int main() {
           << "FUNCAO : f(x) = (sen(2x) + 4x^2+ 3x)^2" << endl
           << endl;
 
+     // limites de integracao e o número de particoes
      GaussLegendre p = GaussLegendre(0, 1, 1, pow(10, -6));
 
-     cout << p.funcao(10);
+     cout << setprecision(10);
 
      cout << "2 PONTOS DE INTEPOLACAO: " << p.pontosInterpolacao2(1) << endl
           << "3 PONTOS DE INTEPOLACAO: " << p.pontosInterpolacao3(1) << endl
