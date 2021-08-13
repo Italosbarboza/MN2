@@ -1,6 +1,6 @@
 from math import sqrt
 
-# Comprimento do Vetor
+# Size Vetor
 def normOfVector(vec):
     comp = 0
     vectAux = vec
@@ -12,25 +12,26 @@ def normOfVector(vec):
 
 def unitVector(vec):
     sum = 0
+
+    size = len(vec)
     
     sum = normOfVector(vec)
     vectAux = vec
-    for i in range(3):
+    for i in range(size):
         vec[i] = vectAux[i]/sum
     return vectAux
 
 def dotProduct(v1, v2):
-    return(v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2])
-
-def matrixXvector(matrix, vector):
+    size = len(v1)
     s = 0
-    for z in range(3):
-        s = s + matrix[z]*vector[z]
+    for i in range(size):
+        s = s + v1[i]*v2[i]
     return s
 
 
 def eigenvector(matrix, vnew, vold):
-
+    size = len(vnew)
+    
     x = len(matrix)
     power = 0
     lambNew = 1
@@ -47,29 +48,38 @@ def eigenvector(matrix, vnew, vold):
         lambOld = lambNew
 
         vnew = unitVector(vnew)
-        #print(vnew)
         vAux = vnew
         vold = vAux
 
+        vAux2 = []
+        for k in range(size):
+            summ = 0
+            for z in range(size):
+                summ = summ + matrix[k][z]*vold[z]
+            vAux2.append(summ);
 
-        for k in range(3):
-            vnew[k] = matrixXvector(matrix[k], vold)
+        vnew = vAux2;
 
-        print(vnew)
+        lambNew = dotProduct(vold, vnew)
 
-        #lambNew = dotProduct(vold, vnew)
+    return("lambda", step, "=", lambNew, "e o auto-vetor =", vnew)
 
-        #print("lambda", step, "=", lambNew)
+     
+print('Para a Matriz [5, 2, 1], [2, 3, 1], [1, 1, 2]')
+matrix1 = [[5, 2, 1], [2, 3, 1], [1, 1, 2]]
+matrix2 = [[40, 8, 4, 2, 1], [8, 30, 12, 6, 2], [4, 12, 20, 1, 2], [2, 6, 1, 25, 4], [1, 2, 2, 5, 5]]
+vnew2 = [1, 0, 0, 0, 0]
+vold2 = [0, 0, 0, 0, 0]
 
-        #for j in range(3):
-         #   vnew[j] = vnew[j]/vnew1
-        #print(vnew)
-
-matrix = [[5, 2, 1], [2, 3, 1], [1, 1, 2]]
 vnew = [1, 0, 0]
 vold = [0, 0, 0]
 normv = 0
 power = 0
 
-eigenvector(matrix, vnew, vold)
+a = eigenvector(matrix1, vnew, vold)
+print(a)
 
+print('Para a Matriz [40, 8, 4, 2, 1], [8, 30, 12, 6, 2], [4, 12, 20, 1, 2], [2, 6, 1, 25, 4], [1, 2, 2, 5, 5]')
+
+b = eigenvector(matrix2, vnew2, vold2)
+print(b)
