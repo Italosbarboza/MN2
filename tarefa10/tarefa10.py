@@ -62,7 +62,7 @@ def eigenvector(matrix, vnew, vold):
 
         lambNew = dotProduct(vold, vnew)
 
-    return("lambda", step, "=", lambNew, "e o auto-vetor =", vnew)
+    return("lambda", step, "=", lambNew, "e o auto-vetor =", vold)
 
      
 print('Para a Matriz [5, 2, 1], [2, 3, 1], [1, 1, 2]')
